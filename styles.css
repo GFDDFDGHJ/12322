@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    color: #333;
+}
+
+.intro-box, .name-box {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 10px;
+}
+
+.day {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.day:hover {
+    background-color: #e0e0e0; /* 鼠标悬停效果 */
+}
+
+.calendar-container {
+    display: none; /* 初始隐藏日历 */
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.modal {
+    display: none; /* 初始隐藏卡片 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 2000;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 阴影效果 */
+    border-radius: 8px; /* 圆角 */
+}
+
+.modal-header {
+    font-weight: bold;
+}
+
+.modal-close {
+    cursor: pointer;
+    color: red;
+    float: right;
+}
+
+input[type="text"] {
+    width: calc(100% - 20px); /* 使输入框宽度适应 */
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* 圆角 */
+}
+
+button {
+    background-color: #4CAF50; /* 绿色背景 */
+    color: white; /* 白色文字 */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px; /* 圆角 */
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #45a049; /* 鼠标悬停效果 */
+} 

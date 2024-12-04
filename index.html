@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的网页</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 添加一些简单的样式 */
+        .name-box {
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+        .intro-box {
+            cursor: pointer;
+            color: green;
+            text-decoration: underline;
+        }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 20px;
+        }
+        .day {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+            cursor: pointer; /* 添加指针样式 */
+        }
+        .calendar-container {
+            display: none; /* 初始隐藏日历 */
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            z-index: 1000;
+        }
+        .modal {
+            display: none; /* 初始隐藏卡片 */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            z-index: 2000;
+        }
+        .modal-header {
+            font-weight: bold;
+        }
+        .modal-close {
+            cursor: pointer;
+            color: red;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        // 设置密码
+        const correctPassword = "mySecretPassword"; // 在这里设置你的密码
+        var password = prompt("请输入密码:");
+        if (password !== correctPassword) {
+            alert("密码错误，无法访问！");
+            window.location.href = "about:blank"; // 重定向到空白页
+        }
+    </script>
+
+    <div class="container">
+        <h1>名字</h1>
+        <p class="intro-box" onclick="showIntro()">这是一个简介部分，介绍网页的内容。</p>
+        <h2 onclick="toggleCalendar()">日志</h2>
+        <ul>
+            <li>日志条目 1</li>
+            <li>日志条目 2</li>
+            <li>日志条目 3</li>
+        </ul>
+        <a href="mailto:19735106396@163.com?subject=设置密码&body=请设置我的密码为：你的密码">发送密码设置链接</a>
+        <div class="name-box" onclick="showInfo()">姓名框</div>
+        
+        <h2>日历</h2>
+        <label for="month-select">选择月份:</label>
+        <select id="month-select" onchange="generateCalendar()">
+            <option value="0">一月</option>
+            <option value="1">二月</option>
+            <option value="2">三月</option>
+            <option value="3">四月</option>
+            <option value="4">五月</option>
+            <option value="5">六月</option>
+            <option value="6">七月</option>
+            <option value="7">八月</option>
+            <option value="8">九月</option>
+            <option value="9">十月</option>
+            <option value="10">十一月</option>
+            <option value="11">十二月</option>
+        </select>
+        <div id="calendar" class="calendar-container">
+            <div id="calendar" class="calendar"></div>
+        </div>
+    </div>
+
+    <!-- 模态卡片 -->
+    <div id="modal" class="modal">
+        <span class="modal-close" onclick="closeModal()">×</span>
+        <div class="modal-header">日期信息</div>
+        <div>
+            <strong>干了什么：</strong>
+            <input type="text" id="what-did-input" placeholder="在这里输入...">
+        </div>
+        <div>
+            <strong>计划：</strong>
+            <input type="text" id="plan-input" placeholder="在这里输入...">
+        </div>
+        <button onclick="saveInfo()">保存</button>
+    </div>
+
+    <script>
+        let currentMonth = new Date().getMonth(); // 当前月份
+        let currentYear = new Date().getFullYear(); // 当前年份
+
+        function showInfo() {
+            alert("姓名：你的父亲；性别：尚不知道");
+        }
+
+        function showIntro() {
+            alert("一个人");
+        }
+
+        function generateCalendar() {
+            const calendar = document.getElementById('calendar');
+            const month = document.getElementById('month-select').value;
+            const year = currentYear;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, parseInt(month) + 1, 0).getDate();
+
+            // 清空日历
+            calendar.innerHTML = '';
+
+            // 添加星期标题
+            const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+            weekdays.forEach(day => {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day';
+                dayElement.textContent = day;
+                calendar.appendChild(dayElement);
+            });
+
+            // 添加空白格子
+            for (let i = 0; i < firstDay; i++) {
+                const emptyElement = document.createElement('div');
+                emptyElement.className = 'day';
+                calendar.appendChild(emptyElement);
+            }
+
+            // 添加日期
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.className = 'day';
+                dayElement.textContent = day;
+                dayElement.onclick = function() { openModal(day); }; // 添加点击事件
+                calendar.appendChild(dayElement);
+            }
+        }
+
+        function toggleCalendar() {
+            const calendarContainer = document.querySelector('.calendar-container');
+            if (calendarContainer.style.display === 'none' || calendarContainer.style.display === '') {
+                calendarContainer.style.display = 'block'; // 显示日历
+                generateCalendar(); // 生成日历
+            } else {
+                calendarContainer.style.display = 'none'; // 隐藏日历
+            }
+        }
+
+        function openModal(day) {
+            document.getElementById('what-did-input').value = localStorage.getItem(`what-did-${day}`) || '';
+            document.getElementById('plan-input').value = localStorage.getItem(`plan-${day}`) || '';
+            document.getElementById('modal').style.display = 'block'; // 显示模态卡片
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none'; // 隐藏模态卡片
+        }
+
+        function saveInfo() {
+            const day = new Date().getDate(); // 获取当前日期
+            const whatDid = document.getElementById('what-did-input').value;
+            const plan = document.getElementById('plan-input').value;
+
+            // 保存到本地存储
+            localStorage.setItem(`what-did-${day}`, whatDid);
+            localStorage.setItem(`plan-${day}`, plan);
+
+            alert("信息已保存！");
+            closeModal(); // 关闭模态卡片
+        }
+
+        // 生成日历
+        generateCalendar();
+    </script>
+</body>
+</html> 
