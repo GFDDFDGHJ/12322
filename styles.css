@@ -31,7 +31,7 @@ h1, h2 {
     margin-top: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #fff;
+    background-color: #f9f9f9;
     padding: 10px;
 }
 
@@ -41,14 +41,16 @@ h1, h2 {
     text-align: center;
     cursor: pointer;
     transition: background-color 0.3s;
+    background-color: #fff;
+    border-radius: 3px;
 }
 
 .day:hover {
-    background-color: #e0e0e0; /* 鼠标悬停效果 */
+    background-color: #e0e0e0;
 }
 
 .calendar-container {
-    display: none; /* 初始隐藏日历 */
+    display: none;
     position: absolute;
     background: white;
     border: 1px solid #ccc;
@@ -57,7 +59,7 @@ h1, h2 {
 }
 
 .modal {
-    display: none; /* 初始隐藏卡片 */
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -66,12 +68,16 @@ h1, h2 {
     border: 1px solid #ccc;
     padding: 20px;
     z-index: 2000;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* 阴影效果 */
-    border-radius: 8px; /* 圆角 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
 }
 
 .modal-header {
     font-weight: bold;
+    background-color: #007bff;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
 }
 
 .modal-close {
@@ -81,23 +87,23 @@ h1, h2 {
 }
 
 input[type="text"] {
-    width: calc(100% - 20px); /* 使输入框宽度适应 */
+    width: calc(100% - 20px);
     padding: 10px;
     margin-top: 5px;
     border: 1px solid #ccc;
-    border-radius: 4px; /* 圆角 */
+    border-radius: 4px;
 }
 
 button {
-    background-color: #4CAF50; /* 绿色背景 */
-    color: white; /* 白色文字 */
+    background-color: #4CAF50;
+    color: white;
     padding: 10px 15px;
     border: none;
-    border-radius: 4px; /* 圆角 */
+    border-radius: 4px;
     cursor: pointer;
     margin-top: 10px;
 }
 
 button:hover {
-    background-color: #45a049; /* 鼠标悬停效果 */
+    background-color: #45a049;
 } 

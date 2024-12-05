@@ -78,7 +78,7 @@
             <li>日志条目 2</li>
             <li>日志条目 3</li>
         </ul>
-        <a href="mailto:19735106396@163.com?subject=设置密码&body=请设置我的密码为：你的密码">发送密码设置链接</a>
+        <a href="mailto:19735106396@163.com?subject=设置密码&body=请设置我的密码为：你的���码">发送密码设置链接</a>
         <div class="name-box" onclick="showInfo()">姓名框</div>
         
         <h2>日历</h2>
@@ -108,13 +108,14 @@
         <div class="modal-header">日期信息</div>
         <div>
             <strong>干了什么：</strong>
-            <input type="text" id="what-did-input" placeholder="在这里输入...">
+            <input type="text" id="what-did-input" placeholder="在这里输��...">
         </div>
         <div>
             <strong>计划：</strong>
             <input type="text" id="plan-input" placeholder="在这里输入...">
         </div>
         <button onclick="saveInfo()">保存</button>
+        <button onclick="deleteInfo()">删除</button>
     </div>
 
     <script>
@@ -161,6 +162,13 @@
                 const dayElement = document.createElement('div');
                 dayElement.className = 'day';
                 dayElement.textContent = day;
+
+                // 显示已保存的事件
+                const savedWhatDid = localStorage.getItem(`what-did-${day}`);
+                if (savedWhatDid) {
+                    dayElement.textContent += ` (${savedWhatDid})`; // 在日期后面显示事件
+                }
+
                 dayElement.onclick = function() { openModal(day); }; // 添加点击事件
                 calendar.appendChild(dayElement);
             }
@@ -180,6 +188,8 @@
             document.getElementById('what-did-input').value = localStorage.getItem(`what-did-${day}`) || '';
             document.getElementById('plan-input').value = localStorage.getItem(`plan-${day}`) || '';
             document.getElementById('modal').style.display = 'block'; // 显示模态卡片
+            document.getElementById('modal').setAttribute('data-day', day); // 保存当前日期
+            document.getElementById('modal').setAttribute('data-editing', true); // 标记为编辑状态
         }
 
         function closeModal() {
@@ -187,7 +197,7 @@
         }
 
         function saveInfo() {
-            const day = new Date().getDate(); // 获取当前日期
+            const day = document.getElementById('modal').getAttribute('data-day'); // 获取当前日期
             const whatDid = document.getElementById('what-did-input').value;
             const plan = document.getElementById('plan-input').value;
 
@@ -197,6 +207,17 @@
 
             alert("信息已保存！");
             closeModal(); // 关闭模态卡片
+            generateCalendar(); // 重新生成日历以显示更新
+        }
+
+        function deleteInfo() {
+            const day = document.getElementById('modal').getAttribute('data-day'); // 获取当前日期
+            localStorage.removeItem(`what-did-${day}`); // 删除事件
+            localStorage.removeItem(`plan-${day}`); // 删除计划
+
+            alert("信息已删除！");
+            closeModal(); // 关闭模态卡片
+            generateCalendar(); // 重新生成日历以显示更新
         }
 
         // 生成日历
