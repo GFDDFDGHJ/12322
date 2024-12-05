@@ -78,7 +78,7 @@
             <li>日志条目 2</li>
             <li>日志条目 3</li>
         </ul>
-        <a href="mailto:19735106396@163.com?subject=设置密码&body=请设置我的密码为：你的���码">发送密码设置链接</a>
+        <a href="mailto:19735106396@163.com?subject=设置密码&body=请设置我的密码为：你的码">发送密码设置链接</a>
         <div class="name-box" onclick="showInfo()">姓名框</div>
         
         <h2>日历</h2>
@@ -108,7 +108,7 @@
         <div class="modal-header">日期信息</div>
         <div>
             <strong>干了什么：</strong>
-            <input type="text" id="what-did-input" placeholder="在这里输��...">
+            <input type="text" id="what-did-input" placeholder="在这里输...">
         </div>
         <div>
             <strong>计划：</strong>
@@ -190,6 +190,10 @@
             document.getElementById('modal').style.display = 'block'; // 显示模态卡片
             document.getElementById('modal').setAttribute('data-day', day); // 保存当前日期
             document.getElementById('modal').setAttribute('data-editing', true); // 标记为编辑状态
+
+            // 提示用户当前选择的日期
+            const modalHeader = document.querySelector('.modal-header');
+            modalHeader.textContent = `日期信息 - ${day}号`;
         }
 
         function closeModal() {
