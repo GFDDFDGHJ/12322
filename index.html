@@ -78,7 +78,7 @@
             <li>日志条目 2</li>
             <li>日志条目 3</li>
         </ul>
-        <a href="mailto:19735106396@163.com?subject=设置密码&body=请设置我的密码为：你的码">发��密码设置链接</a>
+        <a href="mailto:19735106396@163.com?subject=设置密码&body=请设置我的密码为：你的码">发送密码设置链接</a>
         <div class="name-box" onclick="showInfo()">姓名框</div>
         
         <h2>日历</h2>
@@ -167,15 +167,12 @@
                 dayElement.className = 'day';
                 dayElement.textContent = day;
 
-                // 显示已保存的事件
-                const savedWhatDid = localStorage.getItem(`what-did-${day}`);
-                if (savedWhatDid) {
-                    dayElement.textContent += ` (${savedWhatDid})`; // 在日期后面显示事件
-                }
-
                 dayElement.onclick = function() { openModal(day); }; // 添加点击事件
                 calendar.appendChild(dayElement);
             }
+
+            // 显示日历
+            document.querySelector('.calendar-container').style.display = 'block';
         }
 
         function toggleCalendar() {
