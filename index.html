@@ -61,7 +61,7 @@
 <body>
     <script>
         // 设置密码
-        const correctPassword = "mySecretPassword"; // 在这里设置你的密码
+        const correctPassword = "123456"; // 在这里设置你的密码
         var password = prompt("请输入密码:");
         if (password !== correctPassword) {
             alert("密码错误，无法访问！");
@@ -78,7 +78,7 @@
             <li>日志条目 2</li>
             <li>日志条目 3</li>
         </ul>
-        <a href="mailto:19735106396@163.com?subject=设置密码&body=请设置我的密码为：你的码">发送密码设置链接</a>
+        <a href="mailto:19735106396@163.com?subject=设置密码&body=请设置我的密码为：你的码">发��密码设置链接</a>
         <div class="name-box" onclick="showInfo()">姓名框</div>
         
         <h2>日历</h2>
@@ -113,6 +113,10 @@
         <div>
             <strong>计划：</strong>
             <input type="text" id="plan-input" placeholder="在这里输入...">
+        </div>
+        <div>
+            <strong>提醒时间：</strong>
+            <input type="datetime-local" id="reminder-input">
         </div>
         <button onclick="saveInfo()">保存</button>
         <button onclick="deleteInfo()">删除</button>
